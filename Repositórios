@@ -1,0 +1,22 @@
+Java
+
+package com.example.demo.repository;
+
+import com.example.demo.model.Projeto;
+import com.example.demo.model.StatusProjeto;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface ProjetoRepository extends JpaRepository<Projeto, Long> {
+    List<Projeto> findByStatusAndEquipeIsNull(StatusProjeto status);
+}
+java
+Copiar código
+package com.example.demo.repository;
+
+import com.example.demo.model.Equipe;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EquipeRepository extends JpaRepository<Equipe, Long> {
+}
