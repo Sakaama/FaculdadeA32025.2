@@ -1,0 +1,42 @@
+Java
+
+package com.example.demo.controller;
+
+import com.example.demo.model.FaseProjeto;
+import com.example.demo.model.Projeto;
+import com.example.demo.service.ProjetoService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequestMapping("/gerente")
+public class GerenteController {
+
+    private final ProjetoService projetoService;
+
+    public GerenteController(ProjetoService projetoService) {
+        this.projetoService = projetoService;
+    }
+
+    // Tela do painel
+    @GetMapping("/painel")
+    public String painel(Model model) {
+        model.addAttribute("projetos", projetoService.listarProjetosAprovadosNaoAlocados());
+        return "painel";
+    }
+
+    // Alocar projeto
+    @PostMapping("/alocar")
+    public String alocarProjeto(@RequestParam Long projetoId, @RequestParam Long equipeId) {
+        projetoService.alocarProjeto(projetoId, equipeId);
+        return "redirect:/gerente/painel";
+    }
+
+    // Mudar fase
+    @PostMapping("/fase")
+    public String mudarFase(@RequestParam Long projetoId, @RequestParam FaseProjeto novaFase) {
+        projetoService.mudarFase(projetoId, novaFase);
+        return "redirect:/gerente/painel";
+    }
+}
