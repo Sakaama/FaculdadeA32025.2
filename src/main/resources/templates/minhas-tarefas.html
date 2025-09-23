@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Minhas Tarefas</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+</head>
+<body>
+
+    <header>
+        <h1>Minhas Tarefas</h1>
+    </header>
+
+    <main>
+        <table>
+    <thead>
+        <tr>
+            <th>Nome da Tarefa</th>
+            <th>Descrição</th>
+            <th>Status</th>
+            <th>Prazo</th>
+            <th>Ações</th> </tr>
+    </thead>
+    <tbody>
+        <tr th:each="tarefa : ${tarefas}">
+            <td th:text="${tarefa.nome}">Desenvolver Tela de Login</td>
+            <td th:text="${tarefa.descricao}">Criar o HTML e CSS da tela.</td>
+            <td th:text="${tarefa.status}">A_FAZER</td>
+            <td th:text="${tarefa.prazo}">2025-10-15</td>
+            <td>
+                <form th:action="@{/tarefas/{id}/status(id=${tarefa.id})}" method="post">
+                    <select name="novoStatus">
+                        <option th:each="status : ${T(TrabalhoFaculdade.A3.model.StatusTarefa).values()}"
+                                th:value="${status}"
+                                th:text="${status}"
+                                th:selected="${status == tarefa.status}"></option>
+                    </select>
+                    <button type="submit">Atualizar</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(tarefas)}">
+            <td colspan="5">Você não tem nenhuma tarefa atribuída.</td>
+        </tr>
+    </tbody>
+</table>
+    </main>
+
+</body>
+</html>
