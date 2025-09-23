@@ -1,0 +1,42 @@
+Java
+
+package com.example.demo.service;
+
+import com.example.demo.model.*;
+import com.example.demo.repository.EquipeRepository;
+import com.example.demo.repository.ProjetoRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ProjetoService {
+
+    private final ProjetoRepository projetoRepository;
+    private final EquipeRepository equipeRepository;
+
+    public ProjetoService(ProjetoRepository projetoRepository, EquipeRepository equipeRepository) {
+        this.projetoRepository = projetoRepository;
+        this.equipeRepository = equipeRepository;
+    }
+
+    public List<Projeto> listarProjetosAprovadosNaoAlocados() {
+        return projetoRepository.findByStatusAndEquipeIsNull(StatusProjeto.APROVADO);
+    }
+
+    public Projeto alocarProjeto(Long projetoId, Long equipeId) {
+        Projeto projeto = projetoRepository.findById(projetoId)
+                .orElseThrow(() -> new RuntimeException("Projeto não encontrado"));
+        Equipe equipe = equipeRepository.findById(equipeId)
+                .orElseThrow(() -> new RuntimeException("Equipe não encontrada"));
+        projeto.setEquipe(equipe);
+        return projetoRepository.save(projeto);
+    }
+
+    public Projeto mudarFase(Long projetoId, FaseProjeto novaFase) {
+        Projeto projeto = projetoRepository.findById(projetoId)
+                .orElseThrow(() -> new RuntimeException("Projeto não encontrado"));
+        projeto.setFase(novaFase);
+        return projetoRepository.save(projeto);
+    }
+}
