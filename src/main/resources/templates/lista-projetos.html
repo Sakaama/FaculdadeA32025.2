@@ -8,6 +8,7 @@
 <body>
     <div th:replace="~{fragments :: navbar}"></div>
     <div th:replace="~{fragments :: mensagens}"></div>
+
     <header>
         <h1>Painel de Gestão de Projetos</h1>
         <p><a href="/projetos/novo">Submeter Novo Projeto</a></p>
@@ -19,6 +20,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nome do Projeto</th>
+                    <th>Equipe</th>
                     <th>Status</th>
                     <th>Ações</th>
                 </tr>
@@ -27,6 +29,7 @@
                 <tr th:each="projeto : ${projetos}">
                     <td th:text="${projeto.id}">1</td>
                     <td th:text="${projeto.nome}">Nome do Projeto Teste</td>
+                    <td th:text="${projeto.equipe != null ? projeto.equipe.nome : 'N/A'}">Equipe Alpha</td>
                     <td th:text="${projeto.status}">AGUARDANDO_APROVACAO</td>
                     <td>
                         <div th:if="${projeto.status == T(TrabalhoFaculdade.A3.model.StatusProjeto).AGUARDANDO_APROVACAO}">
@@ -34,13 +37,25 @@
                                 <button type="submit">Aprovar</button>
                             </form>
                             <form th:action="@{/projetos/{id}/rejeitar(id=${projeto.id})}" method="post" style="display: inline;">
-                                <button type-="submit" class="secondary">Rejeitar</button>
+                                <button type="submit" class="secondary">Rejeitar</button>
+                            </form>
+                        </div>
+
+                        <div th:if="${projeto.status == T(TrabalhoFaculdade.A3.model.StatusProjeto).APROVADO and projeto.equipe == null}">
+                            <form th:action="@{/projetos/{id}/alocar(id=${projeto.id})}" method="post">
+                                <select name="equipeId" required>
+                                    <option value="">Selecione uma equipe...</option>
+                                    <option th:each="equipe : ${equipes}"
+                                            th:value="${equipe.id}"
+                                            th:text="${equipe.nome}"></option>
+                                </select>
+                                <button type="submit">Alocar</button>
                             </form>
                         </div>
                     </td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(projetos)}">
-                    <td colspan="4">Nenhum projeto cadastrado.</td>
+                    <td colspan="5">Nenhum projeto cadastrado.</td>
                 </tr>
             </tbody>
         </table>

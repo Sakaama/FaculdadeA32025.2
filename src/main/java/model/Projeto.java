@@ -16,11 +16,9 @@ public class Projeto {
     private String nome;
     private String descricao;
 
-    // --- Campo útil que veio do Projeto ALUNO2 ---
     @Enumerated(EnumType.STRING)
-    private StatusProjeto status; // Precisaremos criar o Enum StatusProjeto
+    private StatusProjeto status;
 
-    // --- Relacionamentos corretos que já tínhamos ---
     @JsonIgnore
     @OneToMany(mappedBy = "projeto")
     private List<Tarefa> tarefas;
@@ -28,4 +26,9 @@ public class Projeto {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+        
+    // --- NOVO RELACIONAMENTO ADICIONADO AGORA ---
+    @ManyToOne
+    @JoinColumn(name = "equipe_id") // Isso criará uma coluna equipe_id na tabela de projeto
+    private Equipe equipe;
 }
