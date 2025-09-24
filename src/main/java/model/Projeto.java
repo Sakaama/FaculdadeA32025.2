@@ -1,10 +1,9 @@
 package TrabalhoFaculdade.A3.model;
 
-import jakarta.persistence.*;
-import java.util.List;
-import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import jakarta.persistence.*;
+import lombok.Data;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,16 +15,20 @@ public class Projeto {
 
     private String nome;
     private String descricao;
-    // Adicione aqui outros campos se precisar, como data de início, data de fim, etc.
+
+    @Enumerated(EnumType.STRING)
+    private StatusProjeto status;
 
     @JsonIgnore
     @OneToMany(mappedBy = "projeto")
     private List<Tarefa> tarefas;
 
-    // Relacionamento com Cliente
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-
-    // Futuramente, podemos adicionar um relacionamento com Equipe aqui também.
+        
+    // --- NOVO RELACIONAMENTO ADICIONADO AGORA ---
+    @ManyToOne
+    @JoinColumn(name = "equipe_id") // Isso criará uma coluna equipe_id na tabela de projeto
+    private Equipe equipe;
 }

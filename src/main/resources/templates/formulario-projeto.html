@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Projeto</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+</head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div th:replace="~{fragments :: mensagens}"></div>
+    <header>
+        <h1>Submeter Novo Projeto</h1>
+    </header>
+    <main>
+        <form th:action="@{/projetos}" th:object="${projeto}" method="post">
+            <p>
+                <label for="nome">Nome do Projeto:</label>
+                <input type="text" id="nome" th:field="*{nome}" required>
+            </p>
+            <p>
+                <label for="descricao">Descrição:</label>
+                <textarea id="descricao" th:field="*{descricao}" rows="4"></textarea>
+            </p>
+            <button type="submit">Enviar Projeto para Aprovação</button>
+        </form>
+    </main>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <nav th:fragment="navbar">
+        <a href="/projetos"><strong>Gestão de Projetos</strong></a>
+        <ul>
+            <li><a href="/projetos">Ver Projetos</a></li>
+            <li><a href="/projetos/novo">Submeter Projeto</a></li>
+            <li><a href="/minhas-tarefas/1">Minhas Tarefas</a></li>
+        </ul>
+    </nav>
+
+    <div th:fragment="mensagens">
+        <div th:if="${mensagemSucesso}" class="notice success">
+            <p th:text="${mensagemSucesso}"></p>
+        </div>
+        <div th:if="${mensagemErro}" class="notice error">
+            <p th:text="${mensagemErro}"></p>
+        </div>
+    </div>
+
+</body>
+</html>
