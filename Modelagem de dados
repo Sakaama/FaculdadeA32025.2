@@ -1,0 +1,68 @@
+Java
+
+package com.example.demo.model;
+
+import jakarta.persistence.*;
+import java.util.List;
+
+@Entity
+public class Projeto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String nome;
+
+    @Enumerated(EnumType.STRING)
+    private StatusProjeto status; // APROVADO, REJEITADO, etc.
+
+    @Enumerated(EnumType.STRING)
+    private FaseProjeto fase; // COMECO, DESENVOLVIMENTO, FINALIZACAO
+
+    @ManyToOne
+    private Equipe equipe; // associação com equipe (pode ser null se não tiver alocado ainda)
+
+    // Getters e Setters
+    // ...
+}
+java
+Copiar código
+package com.example.demo.model;
+
+import jakarta.persistence.*;
+import java.util.List;
+
+@Entity
+public class Equipe {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String nome;
+
+    @OneToMany(mappedBy = "equipe")
+    private List<Projeto> projetos;
+
+    // Getters e Setters
+    // ...
+}
+java
+Copiar código
+package com.example.demo.model;
+
+public enum StatusProjeto {
+    APROVADO,
+    REJEITADO,
+    PENDENTE
+}
+java
+Copiar código
+package com.example.demo.model;
+
+public enum FaseProjeto {
+    COMECO,
+    DESENVOLVIMENTO,
+    FINALIZACAO
+}
