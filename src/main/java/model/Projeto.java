@@ -1,10 +1,9 @@
 package TrabalhoFaculdade.A3.model;
 
-import jakarta.persistence.*;
-import java.util.List;
-import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import jakarta.persistence.*;
+import lombok.Data;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,16 +15,17 @@ public class Projeto {
 
     private String nome;
     private String descricao;
-    // Adicione aqui outros campos se precisar, como data de início, data de fim, etc.
 
+    // --- Campo útil que veio do Projeto ALUNO2 ---
+    @Enumerated(EnumType.STRING)
+    private StatusProjeto status; // Precisaremos criar o Enum StatusProjeto
+
+    // --- Relacionamentos corretos que já tínhamos ---
     @JsonIgnore
     @OneToMany(mappedBy = "projeto")
     private List<Tarefa> tarefas;
 
-    // Relacionamento com Cliente
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-
-    // Futuramente, podemos adicionar um relacionamento com Equipe aqui também.
 }
