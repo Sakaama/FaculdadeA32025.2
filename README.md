@@ -1,5 +1,6 @@
 Este projeto é um sistema que ajuda a gerenciar projetos de empresas, feito com Spring Boot no backend e Thymeleaf + Bootstrap no frontend. A ideia é facilitar o controle das demandas, aprovações, alocação de equipes, acompanhamento das tarefas e geração de relatórios.
 
+
 Funcionalidades principais
 Permite que o cliente envie novas demandas/projetos.
 
@@ -15,6 +16,7 @@ Tem dashboards e relatórios pra ajudar a tomar decisões.
 
 Segurança de acesso conforme o perfil do usuário: cliente, gerente ou funcionário.
 
+
 Como o grupo dividiu o trabalho
 Aluno 1: Montou o projeto, banco de dados, segurança, e criou as entidades principais.
 
@@ -28,6 +30,7 @@ Aluno 5: Desenvolveu os relatórios e dashboards para análises e métricas.
 
 Interface: Um integrante cuidou do layout e design para o sistema ficar mais usuário-amigável.
 
+
 Tecnologias usadas
 Java 17 com Spring Boot
 
@@ -39,6 +42,7 @@ Banco de dados MySQL ou H2
 
 Git/GitHub para controle das versões
 
+
 Como rodar o projeto
 Clone o repositório.
 
@@ -49,6 +53,7 @@ Rode mvn clean install para compilar.
 Use mvn spring-boot:run para iniciar.
 
 Acesse http://localhost:8080 no navegador.
+
 
 Integrantes
 Cindy — Clientes e início de projetos
