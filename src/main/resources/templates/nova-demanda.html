@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Demanda</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <main class="d-flex flex-column align-items-center justify-content-start min-vh-100">
+        <h1 class="mt-5 mb-4 text-center fw-bold" style="color:#222;">Nova Demanda</h1>
+
+        <div class="card shadow-lg rounded-4 w-100" style="max-width: 600px; margin-top: 16px;">
+            <div class="card-body">
+                <form th:action="@{/demandas/nova}" th:object="${demanda}" method="post" class="d-grid gap-3">
+                    <div>
+                        <label for="nome" class="form-label">Nome do Projeto:</label>
+                        <input type="text" id="nome" th:field="*{nome}" required class="form-control rounded-3">
+                    </div>
+                    <div>
+                        <label for="descricao" class="form-label">Descrição:</label>
+                        <textarea id="descricao" th:field="*{descricao}" rows="5" class="form-control rounded-3" style="resize:none;"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary rounded-3 px-4">Enviar Demanda</button>
+                    <a href="/FaculdadeA32025.2/src/main/resources/templates/meus-projetos.html" class="btn btn-secondary rounded-3 mt-2">Ver Meus Projetos e demandas</a>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>
